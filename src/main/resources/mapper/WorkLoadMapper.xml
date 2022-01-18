@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.raymon.workrecord.dao.WorkLoadMapper">
+    <select id="listWorkLoadByUserIdByTime" resultType="com.raymon.workrecord.entity.WorkLoad">
+	    SELECT
+			A.*,
+			B.demand_name	
+		FROM
+			workload A
+			LEFT JOIN demand B ON A.demand_id = B.demand_id 
+		WHERE
+			A.user_id = #{userId} 
+			AND A.work_date = #{searchTime}
+    </select>
+    
+    <select id="listWorkLoadByTimeByDepartmentId" resultType="com.raymon.workrecord.pojo.WorkloadDetails">
+	    SELECT
+			A.full_name AS fullName,
+			C.demand_name AS demandName,
+			B.work_content AS workContent,
+			B.work_time AS workTime,
+			C.is_create AS isCreate
+		FROM
+			account A
+			LEFT JOIN workload B ON A.user_id = B.user_id
+			LEFT JOIN demand C ON B.demand_id = C.demand_id 
+		WHERE
+			B.work_date = #{searchTime}
+			AND A.department_id = #{departmentId}
+			ORDER BY A.full_name
+    </select>
+    <select id="listWorkLoadByDepartmentIdByTimeRange" resultType="com.raymon.workrecord.pojo.WorkloadDetails">
+    	SELECT
+			A.full_name AS fullName,
+			C.demand_name AS demandName,
+			SUM( B.work_time) AS workTime,
+			C.is_create as isCreate
+		FROM
+			account A
+			LEFT JOIN workload B ON A.user_id = B.user_id
+			LEFT JOIN demand C ON B.demand_id = C.demand_id 
+			WHERE A.department_id = #{departmentId} AND B.work_date BETWEEN #{beginTime} AND #{endTime}
+		GROUP BY
+			B.demand_id,B.user_id
+    </select>
+</mapper>

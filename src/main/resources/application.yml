@@ -1,0 +1,29 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8073
+  servlet:
+    context-path: /work
+    
+# mybatis-plus 配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*Mapper.xml
+  # 搜索指定包别名
+  type-aliases-package: com.raymon.workrecord.entity
+  global-config:
+    db-config:
+      id-type: uuid
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/work?serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: Raymon123..
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    
