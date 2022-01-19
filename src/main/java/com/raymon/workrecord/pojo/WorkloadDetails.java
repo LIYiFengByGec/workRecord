@@ -7,6 +7,6 @@ public class WorkloadDetails {
 	private String fullName;
 	private String demandName;
 	private String workContent;
-	private Integer workTime;
+	private Double workTime;
 	private Integer isCreate;
 }

@@ -23,7 +23,7 @@ public class WorkLoad {
 	
 	// 工作时长
 	@TableField("work_time")
-	private Integer workTime;
+	private Double workTime;
 	
 	@TableField("user_id")
 	private String userId;
