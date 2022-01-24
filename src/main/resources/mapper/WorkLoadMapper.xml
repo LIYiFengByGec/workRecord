@@ -27,7 +27,7 @@
 		WHERE
 			B.work_date = #{searchTime}
 			AND A.department_id = #{departmentId}
-			ORDER BY A.full_name
+		ORDER BY A.full_name
     </select>
     <select id="listWorkLoadByDepartmentIdByTimeRange" resultType="com.raymon.workrecord.pojo.WorkloadDetails">
     	SELECT
@@ -42,5 +42,6 @@
 			WHERE A.department_id = #{departmentId} AND B.work_date BETWEEN #{beginTime} AND #{endTime}
 		GROUP BY
 			B.demand_id,B.user_id
+		ORDER BY A.full_name
     </select>
 </mapper>
