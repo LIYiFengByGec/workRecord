@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.raymon.workrecord.common.R;
 import com.raymon.workrecord.entity.Demand;
+import com.raymon.workrecord.pojo.DemandSearchParams;
 import com.raymon.workrecord.service.DemandService;
 
 @RestController
@@ -36,10 +37,10 @@ public class DemandController {
 		return R.ok();
 	}
 	
-	// 查询需求列表,按创建时间倒序排序
-	@GetMapping("/listDemand")
-	public R listDemand() {
-		List<Demand> list = demandService.listDemand();
+	// 查询需求列表,按创建时间倒序排序 
+	@PostMapping("/listDemand")
+	public R listDemand(@RequestBody DemandSearchParams params) {
+		List<Demand> list = demandService.listDemand(params);
 		return R.ok().put(list);
 	}
 	

@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.raymon.workrecord.dao.DemandMapper;
 import com.raymon.workrecord.entity.Demand;
 import com.raymon.workrecord.exception.BusinessException;
+import com.raymon.workrecord.pojo.DemandSearchParams;
 import com.raymon.workrecord.service.DemandService;
 
 @Service
@@ -25,9 +27,17 @@ public class DemandServiceImpl implements DemandService {
 	}
 
 	@Override
-	public List<Demand> listDemand() {
+	public List<Demand> listDemand(DemandSearchParams params) {
 		QueryWrapper<Demand> query = new QueryWrapper<>();
 		query.orderByDesc("modify_time");
+		if(!StringUtils.isEmpty(params.getDemandName())) 
+			query.like("demand_name", params.getDemandName());
+		if(params.getIsFinish() != null)
+			query.eq("is_finish", params.getIsFinish());
+		if(params.getIsCreate() != null)
+			query.eq("is_create", params.getIsCreate());
+		if(params.getBeginTime()!= null && params.getEndTime() != null)
+			query.between("modify_time", params.getBeginTime(), params.getEndTime());
 		return demandMapper.selectList(query);
 	}
 
