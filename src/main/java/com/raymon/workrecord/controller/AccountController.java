@@ -11,7 +11,7 @@ import com.raymon.workrecord.pojo.LoginForm;
 import com.raymon.workrecord.service.AccountService;
 
 @RestController
-public class AccountCounter {
+public class AccountController {
 	
 	@Autowired
 	private AccountService accountService;
