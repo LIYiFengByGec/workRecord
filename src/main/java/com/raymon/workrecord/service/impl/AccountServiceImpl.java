@@ -1,5 +1,8 @@
 package com.raymon.workrecord.service.impl;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +46,11 @@ public class AccountServiceImpl implements AccountService{
 		}else {
 			return account;
 		}
+	}
+
+	@Override
+	public List<Account> listWorkAccountByTimeRange(Date beginTime, Date endTime) {
+		return accountMapper.listWorkAccountByTimeRange(beginTime, endTime);
 	}
 	
 }

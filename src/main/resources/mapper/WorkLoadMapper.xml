@@ -31,8 +31,10 @@
     </select>
     <select id="listWorkLoadByDepartmentIdByTimeRange" resultType="com.raymon.workrecord.pojo.WorkloadDetails">
     	SELECT
+    		A.user_id AS userId,
 			A.full_name AS fullName,
 			C.demand_name AS demandName,
+			C.demand_id AS demandId,
 			SUM( B.work_time) AS workTime,
 			C.is_create as isCreate
 		FROM

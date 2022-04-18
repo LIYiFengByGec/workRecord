@@ -19,6 +19,9 @@ public class WorkLoadForm {
 	
 	private String userId;
 	
+	private String fullName;
+	
 	private String departmentId;
 	
+	private String demandId;
 }

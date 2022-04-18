@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.raymon.workrecord.dao.DemandMapper">
+    <select id="listDemandByTimeRange" resultType="com.raymon.workrecord.entity.Demand">
+	    SELECT
+			A.demand_id,
+			A.demand_name,
+			A.is_create,
+			A.is_finish,
+			A.jira_address,
+			A.modify_time
+		FROM
+			demand A
+			LEFT JOIN workload B ON A.demand_id = B.demand_id
+			WHERE B.work_date BETWEEN #{beginTime} AND #{endTime}
+			GROUP BY A.demand_id
+    </select>
+    <select id="listDemandByTimeRangeByUserId" resultType="com.raymon.workrecord.entity.Demand">
+	    SELECT
+			A.demand_id,
+			A.demand_name 
+		FROM
+			demand A
+			LEFT JOIN workload B ON A.demand_id = B.demand_id 
+		WHERE
+			B.work_date BETWEEN #{beginTime} AND #{endTime} 
+			AND B.user_id = #{userId}
+		GROUP BY
+			A.demand_id
+    </select>
+</mapper>

@@ -69,4 +69,14 @@ public class DemandServiceImpl implements DemandService {
 		demandMapper.updateById(demand);
 	}
 
+	@Override
+	public List<Demand> listDemandByTimeRange(Date beginTime, Date endTime) {
+		return demandMapper.listDemandByTimeRange(beginTime, endTime);
+	}
+
+	@Override
+	public List<Demand> listDemandByTimeRangeByUserId(String userId, Date beginTime, Date endTime) {
+		return demandMapper.listDemandByTimeRangeByUserId(userId, beginTime, endTime);
+	}
+
 }

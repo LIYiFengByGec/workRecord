@@ -1,6 +1,9 @@
 package com.raymon.workrecord.controller;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,4 +64,18 @@ public class WorkLoadController {
 		List<WorkloadDetails> list = workLoadService.listWorkLoadByDepartmentIdByTimeRange(form.getDepartmentId(), form.getBeginTime(), form.getEndTime());
 		return R.ok().put(list);
 	}
+	
+	// 统计一段时间下某个需求在该段时间段内每天的工作内容
+	@PostMapping("/listWorkLoadContentByTimeRange")
+	public R listWorkLoadContentByTimeRange(@RequestBody WorkLoadForm form) {
+		List<WorkLoad> list = workLoadService.listWorkLoadContentByTimeRange(form.getUserId(),form.getDemandId(), form.getBeginTime(), form.getEndTime());
+		return R.ok().put(list);
+	}
+	
+	// 导出为周报（word）
+	@PostMapping("/exportWord")
+	public void exportWord(@RequestBody WorkLoadForm form, HttpServletResponse response) {
+		workLoadService.exportWord(form.getFullName(),form.getBeginTime(),form.getEndTime(),response);
+	}
+	
 }
