@@ -31,4 +31,10 @@ public class Demand {
 	
 	@TableField("modify_time")
 	private Date modifyTime;
+	
+	@TableField("schedule")
+	private Integer schedule;
+	
+	@TableField("remark")
+	private String remark;
 }

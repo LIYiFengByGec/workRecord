@@ -23,6 +23,7 @@ public class DemandServiceImpl implements DemandService {
 	@Override
 	public void addDemand(Demand demand) {
 		demand.setModifyTime(new Date());
+		demand.setSchedule(0);
 		demandMapper.insert(demand);
 	}
 
@@ -35,7 +36,7 @@ public class DemandServiceImpl implements DemandService {
 		if(params.getIsFinish() != null)
 			query.eq("is_finish", params.getIsFinish());
 		if(params.getIsCreate() != null)
-			query.eq("is_create", params.getIsCreate());
+			query.eq("jira_address", "").or().eq("jira_address", null);
 		if(params.getBeginTime()!= null && params.getEndTime() != null)
 			query.between("modify_time", params.getBeginTime(), params.getEndTime());
 		return demandMapper.selectList(query);
@@ -59,6 +60,7 @@ public class DemandServiceImpl implements DemandService {
 			throw new BusinessException("找不到此需求单！");
 		int isFinish = demand.getIsFinish() == 1 ? 0 : 1;
 		demand.setIsFinish(isFinish);
+		demand.setSchedule(100);
 		demand.setModifyTime(new Date());
 		demandMapper.updateById(demand);
 	}
@@ -77,6 +79,16 @@ public class DemandServiceImpl implements DemandService {
 	@Override
 	public List<Demand> listDemandByTimeRangeByUserId(String userId, Date beginTime, Date endTime) {
 		return demandMapper.listDemandByTimeRangeByUserId(userId, beginTime, endTime);
+	}
+
+	@Override
+	public void updateDemandScheduleByDemandId(String demandId, int schedule) {
+		Demand demand = demandMapper.selectById(demandId);
+		if(demand == null) 
+			throw new BusinessException("找不到此需求单！");
+		demand.setSchedule(schedule);
+		demand.setModifyTime(new Date());
+		demandMapper.updateById(demand);
 	}
 
 }

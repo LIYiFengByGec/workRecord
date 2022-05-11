@@ -23,4 +23,6 @@ public interface DemandService {
 	
 	// 查询一段时间内某个员工有工作记录的需求信息
 	List<Demand> listDemandByTimeRangeByUserId(String userId, Date beginTime, Date endTime);
+
+	void updateDemandScheduleByDemandId(String demandId, int schedule);
 }

@@ -44,7 +44,7 @@ public class DemandController {
 		return R.ok().put(list);
 	}
 	
-	// 更新是否已建单状态
+	// 更新是否需要建单状态
 	@GetMapping("/updateDemandCreateByDemandId/{demandId}")
 	public R updateDemandCreateByDemandId(@PathVariable String demandId) {
 		demandService.updateDemandCreateByDemandId(demandId);
@@ -55,6 +55,12 @@ public class DemandController {
 	@GetMapping("/updateDemandFinishByDemandId/{demandId}")
 	public R updateDemandFinishByDemandId(@PathVariable String demandId) {
 		demandService.updateDemandFinishByDemandId(demandId);
+		return R.ok();
+	}
+	// 更新任务进度
+	@GetMapping("/updateDemandScheduleByDemandId/{demandId}/{schedule}")
+	public R updateDemandScheduleByDemandId(@PathVariable String demandId, @PathVariable int schedule) {
+		demandService.updateDemandScheduleByDemandId(demandId,schedule);
 		return R.ok();
 	}
 }
